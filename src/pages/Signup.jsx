@@ -1,13 +1,36 @@
 import { Button } from "@/components/ui/button"
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Signup = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("handlesubmit")
+    try {
+      const response = await fetch("http://localhost:4321/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await response.json()
+      console.log("data", data)
+
+      if (response.ok) {
+        alert("Signup successful! Redirecting to login...")
+        navigate("/login")
+      } else {
+        alert("Signup failed: " + (data.message || "Unknown error"))
+      }
+    } catch (error) {
+      console.log(error)
+      alert("Signup failed: " + error.message)
+    }
   }
 
   return (
@@ -40,7 +63,7 @@ const Signup = () => {
         </div>
         <Button
           className="mt-4"
-          type
+          type="submit"
         >
           Signup
         </Button>
