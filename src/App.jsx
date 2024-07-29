@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
+import AddJob from "./pages/AddJob"
 
 export default function App() {
   return (
@@ -19,13 +20,21 @@ export default function App() {
           />
           <Route
             path="/signup"
-            element={<Signup/>}
+            element={<Signup />}
           />
-           <Route
+          <Route
             path="/login"
-            element={<Login/>}
+            element={<Login />}
           />
-           <Route
+          {/* <Route
+          path="jobs"
+          element={<Jobs />}
+        /> */}
+          <Route
+            path="add-job"
+            element={<AddJob />}
+          />
+          <Route
             path="*"
             element={<NotFound />}
           />
