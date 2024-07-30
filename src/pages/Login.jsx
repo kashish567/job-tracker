@@ -16,7 +16,6 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // Ensure cookies are sent and received
       })
 
       const data = await response.json()
@@ -25,6 +24,10 @@ const Login = () => {
 
       if (response.ok) {
         alert("Login successful!")
+
+        // Assuming the token is in the response data
+        localStorage.setItem("authToken", data.data.token)
+
         setTimeout(() => {
           navigate("/")
         }, 1000)

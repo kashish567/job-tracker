@@ -7,10 +7,8 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useToast } from "@/components/ui/use-toast"
-import { useCookies } from "react-cookie"
 import { Button } from "react-day-picker"
 import { useForm } from "react-hook-form"
 
@@ -21,15 +19,14 @@ function AddJob() {
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const [cookies] = useCookies(["token"])
-  console.log("Cookies:", cookies) // Log cookies to ensure they are fetched
   const { toast } = useToast()
 
   useEffect(() => {
-    if (!cookies.token) {
-      console.warn("Token cookie not found")
+    const token = localStorage.getItem("authToken")
+    if (!token) {
+      console.warn("Token not found in localStorage")
     }
-  }, [cookies])
+  }, [])
 
   const onSubmit = async (data) => {
     const formdata = {
@@ -42,13 +39,18 @@ function AddJob() {
     }
 
     try {
+      const token = localStorage.getItem("authToken")
+      if (!token) {
+        throw new Error("Authentication token not found. Please log in again.")
+      }
+
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_HOST}/job-application`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: cookies.token,
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
           },
           body: JSON.stringify(formdata),
         }
@@ -63,14 +65,14 @@ function AddJob() {
       } else {
         toast({
           title: "Error",
-          description: result.message || "There was some error occurred",
+          description: result.message || "There was an error occurred",
           type: "destructive",
         })
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "There was some error occurred",
+        description: error.message || "There was an error occurred",
         type: "destructive",
       })
     }
