@@ -1,57 +1,81 @@
-// Navbar.jsx
-import React, { useEffect } from "react"
-import { Link } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { SiTodoist } from "react-icons/si"
 
-const Navbar = () => {
-  // Check if the token is present in local storage
+// import { useHistory } from "react-router-dom";
+
+function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const navigate = useNavigate()
+
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    console.log("token:", token)
+    const token = localStorage.getItem("authToken")
+    if (token) {
+      setIsLoggedIn(true)
+    }
   }, [])
 
+  // const handleLogin = () => {
+  //   // Implement login logic here
+  //   localStorage.setItem("token"); // Simulate setting a token
+  //   setIsLoggedIn(true);
+  // };
+
+  const handleLogout = () => {
+    // Implement logout logic here
+    localStorage.removeItem("authToken")
+    setIsLoggedIn(false)
+  }
+
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="text-xl font-bold text-white">
-          <Link to="/">MyApp</Link>
-        </div>
-        <div className="flex space-x-4">
-          {/* Conditionally render buttons based on token presence */}
-          {!token ? (
-            <>
-              <Link
-                to="/login"
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-700"
-              >
-                Signup
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/add-job"
-                className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-700"
-              >
-                Add Job
-              </Link>
-              <Link
-                to="/view-applications"
-                className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
-              >
-                View Job Applications
-              </Link>
-            </>
-          )}
-        </div>
+    <nav className="flex items-center justify-between bg-gray-600 p-4">
+      <div className="flex items-center justify-center gap-2 p-4 text-2xl font-bold italic text-white">
+        <SiTodoist />
+        Job Journey
+      </div>
+      <div>
+        {!isLoggedIn ? (
+          <>
+            <button
+              className="mr-2 scale-90 rounded bg-white px-4 py-2 font-bold text-black hover:shadow-md
+                hover:shadow-blue-200"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+            <button
+              className="mr-2 scale-90 rounded bg-white px-4 py-2 font-bold text-black hover:shadow-md
+                hover:shadow-blue-200"
+              onClick={() => navigate("/signup")}
+            >
+              Signup
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              className="mr-2 rounded bg-purple-500 px-4 py-2 font-bold text-white hover:bg-purple-700"
+              onClick={() => navigate("/add-job")}
+            >
+              Job
+            </button>
+            <button
+              className="mr-2 rounded bg-yellow-500 px-4 py-2 font-bold text-white hover:bg-yellow-700"
+              // onClick={() => navigateTo("/get-all")}
+            >
+              Get All
+            </button>
+            <button
+              className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   )
 }
 
-export default Navbar
+export default Header

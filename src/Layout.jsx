@@ -4,10 +4,8 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 
 function Layout() {
-  const [count, setCount] = useState(0)
-
   return (
-    <main className="flex min-h-screen w-screen flex-col">
+    <main className="flex h-screen w-screen flex-col bg-gray-200">
       <Header />
       <Outlet />
       <Footer />
