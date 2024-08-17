@@ -5,6 +5,8 @@ import NotFound from "./pages/NotFound"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import AddJob from "./pages/AddJob"
+import CardFour from "./pages/GetJobs"
+import JobApplications from "./pages/JobApplication"
 
 export default function App() {
   return (
@@ -26,10 +28,11 @@ export default function App() {
             path="/login"
             element={<Login />}
           />
-          {/* <Route
-          path="jobs"
-          element={<Jobs />}
-        /> */}
+          <Route
+            path="/get-all"
+            element={<JobApplications />}
+          />
+
           <Route
             path="add-job"
             element={<AddJob />}

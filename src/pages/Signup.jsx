@@ -41,7 +41,7 @@ const Signup = () => {
   }, [navigate])
 
   return (
-    <div className="mt-28 flex h-[680px] items-center justify-center bg-gray-200">
+    <div className=" flex h-[680px] items-center justify-center bg-gray-200">
       <div className="w-full max-w-md rounded-lg border bg-white p-8 shadow-lg">
         <h2 className="mb-6 text-center text-2xl font-bold">Signup</h2>
         <form onSubmit={handleSubmit}>

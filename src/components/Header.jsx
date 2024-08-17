@@ -28,8 +28,11 @@ function Header() {
   }
 
   return (
-    <nav className="flex items-center justify-between bg-gray-600 p-4">
-      <div className="flex items-center justify-center gap-2 p-4 text-2xl font-bold italic text-white">
+    <nav className="flex items-center justify-between bg-white p-4 shadow-md">
+      <div
+        className="flex items-center justify-center gap-2 p-4 text-2xl font-bold italic
+          text-blue-600"
+      >
         <SiTodoist />
         Job Journey
       </div>
@@ -37,14 +40,14 @@ function Header() {
         {!isLoggedIn ? (
           <>
             <button
-              className="mr-2 scale-90 rounded bg-white px-4 py-2 font-bold text-black hover:shadow-md
+              className="mr-2 scale-90 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:shadow-md
                 hover:shadow-blue-200"
               onClick={() => navigate("/login")}
             >
               Login
             </button>
             <button
-              className="mr-2 scale-90 rounded bg-white px-4 py-2 font-bold text-black hover:shadow-md
+              className="mr-2 scale-90 rounded bg-blue-500 px-4 py-2 text-white font-bold hover:shadow-md
                 hover:shadow-blue-200"
               onClick={() => navigate("/signup")}
             >
@@ -54,19 +57,19 @@ function Header() {
         ) : (
           <>
             <button
-              className="mr-2 rounded bg-purple-500 px-4 py-2 font-bold text-white hover:bg-purple-700"
+              className="mr-2 rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
               onClick={() => navigate("/add-job")}
             >
               Job
             </button>
             <button
-              className="mr-2 rounded bg-yellow-500 px-4 py-2 font-bold text-white hover:bg-yellow-700"
-              // onClick={() => navigateTo("/get-all")}
+              className="mr-2 rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
+              onClick={() => navigate("/get-all")}
             >
               Get All
             </button>
             <button
-              className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+              className="rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
               onClick={handleLogout}
             >
               Logout

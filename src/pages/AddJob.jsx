@@ -76,10 +76,10 @@ function AddJob() {
   }, [])
 
   return (
-    <div className="max-w-screen bg-gray-100 py-4">
-      <Card className="mx-auto max-w-6xl rounded-lg bg-white p-5 shadow-lg">
-        <CardHeader className="mb-2 text-center text-4xl font-bold">
-        Add a job to your profile
+    <div className="max-w-screen bg-blue-50 py-4 text-blue-500">
+      <Card className="mx-auto max-w-6xl rounded-lg bg-white p-5 text-blue-500 shadow-lg">
+        <CardHeader className="mb-2 text-center text-4xl font-bold text-blue-500">
+          Add a job to your profile
         </CardHeader>
         <CardContent>
           <form
@@ -125,7 +125,7 @@ function AddJob() {
                 render={({ field }) => (
                   <RadioGroup
                     {...field}
-                    className={`flex flex-wrap gap-5 text-black
+                    className={`flex flex-wrap gap-5 text-blue-500
                     ${errors.application_status ? "border-red-500" : ""}`}
                   >
                     <div className="flex items-center gap-4">
@@ -173,7 +173,7 @@ function AddJob() {
                   required: "Please select a date",
                 })}
                 type="date"
-                className={`w-full rounded-lg border bg-white px-4 py-2 text-black
+                className={`w-full rounded-lg border bg-white px-4 py-2 text-blue-500
                   ${errors.application_date ? "border-red-500" : ""}`}
               />
               {errors.application_date && (
@@ -188,7 +188,7 @@ function AddJob() {
               <input
                 {...register("follow_up_date")}
                 type="date"
-                className={`w-full rounded-lg border bg-white px-4 py-2 text-black
+                className={`w-full rounded-lg border bg-white px-4 py-2 text-blue-500
                   ${errors.follow_up_date ? "border-red-500" : ""}`}
               />
               {errors.follow_up_date && (
@@ -211,7 +211,8 @@ function AddJob() {
             <div className="col-span-1 md:col-span-2">
               <Button
                 type="submit"
-                className="w-full rounded-lg bg-black py-3 text-white disabled:opacity-75"
+                className="w-full rounded-lg bg-blue-500 py-3 text-white hover:bg-blue-700
+                  disabled:opacity-75"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Submitting..." : "Add Job"}
