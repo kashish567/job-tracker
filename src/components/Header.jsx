@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { SiTodoist } from "react-icons/si"
-
-// import { useHistory } from "react-router-dom";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -15,16 +15,14 @@ function Header() {
     }
   }, [])
 
-  // const handleLogin = () => {
-  //   // Implement login logic here
-  //   localStorage.setItem("token"); // Simulate setting a token
-  //   setIsLoggedIn(true);
-  // };
-
   const handleLogout = () => {
-    // Implement logout logic here
     localStorage.removeItem("authToken")
     setIsLoggedIn(false)
+    setIsMenuOpen(false)
+  }
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
   }
 
   return (
@@ -36,46 +34,75 @@ function Header() {
         <SiTodoist />
         Job Journey
       </div>
-      <div>
-        {!isLoggedIn ? (
-          <>
-            <button
-              className="mr-2 scale-90 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:shadow-md
-                hover:shadow-blue-200"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-            <button
-              className="mr-2 scale-90 rounded bg-blue-500 px-4 py-2 text-white font-bold hover:shadow-md
-                hover:shadow-blue-200"
-              onClick={() => navigate("/signup")}
-            >
-              Signup
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              className="mr-2 rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
-              onClick={() => navigate("/add-job")}
-            >
-              Job
-            </button>
-            <button
-              className="mr-2 rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
-              onClick={() => navigate("/get-all")}
-            >
-              Get All
-            </button>
-            <button
-              className="rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          </>
-        )}
+      <div className="md:hidden">
+        <button
+          onClick={toggleMenu}
+          className="text-2xl"
+        >
+          {isMenuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+        </button>
+      </div>
+      <div
+        className={`absolute left-0 top-16 w-full bg-white transition-transform duration-300
+          ease-in-out md:static md:flex md:w-auto md:transform-none ${
+          isMenuOpen
+              ? "translate-x-0 transform"
+              : "-translate-x-full transform"
+          }`}
+      >
+        <div className="flex flex-col items-center gap-4 p-4 md:flex-row md:p-0">
+          {!isLoggedIn ? (
+            <>
+              <button
+                className="scale-90 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:shadow-md
+                  hover:shadow-blue-200"
+                onClick={() => {
+                  navigate("/login")
+                  setIsMenuOpen(false)
+                }}
+              >
+                Login
+              </button>
+              <button
+                className="scale-90 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:shadow-md
+                  hover:shadow-blue-200"
+                onClick={() => {
+                  navigate("/signup")
+                  setIsMenuOpen(false)
+                }}
+              >
+                Signup
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
+                onClick={() => {
+                  navigate("/add-job")
+                  setIsMenuOpen(false)
+                }}
+              >
+                Add Job
+              </button>
+              <button
+                className="rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
+                onClick={() => {
+                  navigate("/get-all")
+                  setIsMenuOpen(false)
+                }}
+              >
+                Applications
+              </button>
+              <button
+                className="rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-500"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   )

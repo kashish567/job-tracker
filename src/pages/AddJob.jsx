@@ -69,18 +69,18 @@ function AddJob() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-50 p-10">
-      <Card className="mx-auto max-w-6xl rounded-lg bg-white p-10 text-blue-600 shadow-lg">
-        <CardHeader className="mb-10 text-center text-4xl font-bold text-blue-600">
+    <div className=" bg-blue-50 p-4 md:p-10">
+      <Card className=" rounded-lg bg-white p-6 text-blue-600 shadow-lg md:p-10">
+        <CardHeader className="mb-6 text-center text-3xl font-bold text-blue-600 md:mb-10 md:text-4xl">
           Add Job
         </CardHeader>
-        <CardDescription className="mb-10 text-center text-blue-600">
+        <CardDescription className="mb-6 text-center text-blue-600 md:mb-10">
           Add a job to your profile
         </CardDescription>
         <CardContent>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="grid grid-cols-1 gap-8 md:grid-cols-2"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
           >
             <div>
               <Label>Company Name</Label>
