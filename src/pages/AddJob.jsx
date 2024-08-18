@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import {
   Card,
   CardContent,
@@ -11,7 +11,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { useForm, Controller } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 
 function AddJob() {
   const {
@@ -20,7 +19,7 @@ function AddJob() {
     control,
     formState: { errors, isSubmitting },
   } = useForm()
-  const navigate = useNavigate()
+
   const { toast } = useToast()
 
   const onSubmit = async (data) => {
@@ -34,13 +33,14 @@ function AddJob() {
     }
 
     try {
+      console.log(formdata)
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_HOST}/job-application`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: localStorage.getItem("token"),
+            authorization: localStorage.getItem("authToken"),
           },
           body: JSON.stringify(formdata),
         }
@@ -68,19 +68,15 @@ function AddJob() {
     }
   }
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken")
-    if (!token) {
-      navigate("/login")
-    }
-  }, [])
-
   return (
-    <div className="max-w-screen bg-blue-50 py-4 text-blue-500">
-      <Card className="mx-auto max-w-6xl rounded-lg bg-white p-5 text-blue-500 shadow-lg">
-        <CardHeader className="mb-2 text-center text-4xl font-bold text-blue-500">
-          Add a job to your profile
+    <div className="min-h-screen bg-blue-50 p-10">
+      <Card className="mx-auto max-w-6xl rounded-lg bg-white p-10 text-blue-600 shadow-lg">
+        <CardHeader className="mb-10 text-center text-4xl font-bold text-blue-600">
+          Add Job
         </CardHeader>
+        <CardDescription className="mb-10 text-center text-blue-600">
+          Add a job to your profile
+        </CardDescription>
         <CardContent>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -125,8 +121,7 @@ function AddJob() {
                 render={({ field }) => (
                   <RadioGroup
                     {...field}
-                    className={`flex flex-wrap gap-5 text-blue-500
-                    ${errors.application_status ? "border-red-500" : ""}`}
+                    className={`flex flex-wrap gap-5 ${errors.application_status ? "border-red-500" : ""}`}
                   >
                     <div className="flex items-center gap-4">
                       <RadioGroupItem
@@ -173,7 +168,7 @@ function AddJob() {
                   required: "Please select a date",
                 })}
                 type="date"
-                className={`w-full rounded-lg border bg-white px-4 py-2 text-blue-500
+                className={`w-full rounded-lg border bg-white px-4 py-2
                   ${errors.application_date ? "border-red-500" : ""}`}
               />
               {errors.application_date && (
@@ -188,7 +183,7 @@ function AddJob() {
               <input
                 {...register("follow_up_date")}
                 type="date"
-                className={`w-full rounded-lg border bg-white px-4 py-2 text-blue-500
+                className={`w-full rounded-lg border bg-white px-4 py-2
                   ${errors.follow_up_date ? "border-red-500" : ""}`}
               />
               {errors.follow_up_date && (
@@ -200,7 +195,7 @@ function AddJob() {
               <Label>Notes</Label>
               <textarea
                 {...register("notes")}
-                className={`h-[7rem] w-full rounded-lg border bg-white px-4 py-2 text-black
+                className={`h-[10rem] w-full rounded-lg border bg-white px-4 py-2
                   ${errors.notes ? "border-red-500" : ""}`}
               />
               {errors.notes && (
@@ -211,7 +206,7 @@ function AddJob() {
             <div className="col-span-1 md:col-span-2">
               <Button
                 type="submit"
-                className="w-full rounded-lg bg-blue-500 py-3 text-white hover:bg-blue-700
+                className="w-full rounded-lg bg-blue-600 py-3 text-white hover:bg-blue-800
                   disabled:opacity-75"
                 disabled={isSubmitting}
               >
