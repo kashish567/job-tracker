@@ -25,11 +25,17 @@ function Header() {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const handleHomeClick = () => {
+    navigate("/")
+    setIsMenuOpen(false) // Close the menu if it was open
+  }
+
   return (
-    <nav className="flex items-center justify-between bg-white p-4 shadow-md">
+    <nav className="sticky flex items-center justify-between bg-white p-4 shadow-md">
       <div
-        className="flex items-center justify-center gap-2 p-4 text-2xl font-bold italic
-          text-blue-600"
+        onClick={handleHomeClick}
+        className="flex cursor-pointer items-center justify-center gap-2 p-4 text-2xl font-bold
+          italic text-blue-600"
       >
         <SiTodoist />
         Job Journey

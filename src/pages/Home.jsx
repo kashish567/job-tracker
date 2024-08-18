@@ -1,9 +1,17 @@
-import React from "react"
-import { Button } from "@/components/ui/button"
-import Navbar from "@/components/Header"
+import AboutUsSection from "@/components/AboutUsSection";
+import GallerySection from "@/components/GallerySection";
+import HeroSection from "@/components/HeroSection";
+import React from "react";
+
 
 function Home() {
-  return <>{/* <Navbar /> */}</>
+  return (
+    <>
+      <HeroSection />
+      <AboutUsSection />
+      <GallerySection />
+    </>
+  );
 }
 
-export default Home
+export default Home;
